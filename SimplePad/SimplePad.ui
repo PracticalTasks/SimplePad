@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>400</height>
+    <width>573</width>
+    <height>375</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,11 +23,27 @@
    <layout class="QGridLayout" name="gridLayout_3">
     <item row="0" column="0">
      <widget class="QSplitter" name="splitter">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
       <widget class="QWidget" name="gridLayoutWidget">
-       <layout class="QGridLayout" name="gridLayout"/>
+       <layout class="QGridLayout" name="gridLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+       </layout>
       </widget>
       <widget class="QWidget" name="gridLayoutWidget_2">
        <layout class="QGridLayout" name="gridLayout_2">
@@ -45,7 +61,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>573</width>
      <height>22</height>
     </rect>
    </property>
