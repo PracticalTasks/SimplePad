@@ -13,7 +13,7 @@ SimplePad::SimplePad(QWidget *parent)
     model = std::make_unique<QFileSystemModel>();
     treeView->setModel(model.get());
     
-    ui.horizontalLayout->addWidget(treeView.get());
+    ui.gridLayout->addWidget(treeView.get());
     treeView->hide();
 
     connect(ui.action_Open_File, SIGNAL(triggered()), SLOT(openFile()));
@@ -25,6 +25,7 @@ SimplePad::SimplePad(QWidget *parent)
     connect(ui.action_Dark, SIGNAL(triggered()), SLOT(darkTheme()));
     connect(ui.action_Light, SIGNAL(triggered()), SLOT(lightTheme()));
     connect(ui.actionOpe_n_folder_as_project, SIGNAL(triggered()), SLOT(openFolder()));
+    connect(treeView.get(), SIGNAL(doubleClicked(const QModelIndex &)), SLOT(selectItem(const QModelIndex &)));
 
 //Установка русской локализации по умолчанию
     ruLanguage();
@@ -160,5 +161,26 @@ void SimplePad::openFolder()
     model->setRootPath(QDir::currentPath());
     treeView->setRootIndex(model->index(str));
     treeView->show();
+
+
+}
+
+void SimplePad::selectItem(const QModelIndex &index)
+{
+    auto str = model->filePath(index);
+
+    if (str.length() > 0)
+    {
+        if (!str.isEmpty())
+        {
+            QFile file(str);
+            if (file.open(QFile::ReadOnly | QFile::ExistingOnly))
+            {
+                QTextStream stream(&file);
+                ui.textEdit->setPlainText(stream.readAll());
+                file.close();
+            }
+        }
+    }
 
 }

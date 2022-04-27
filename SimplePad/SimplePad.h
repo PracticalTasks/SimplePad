@@ -33,6 +33,7 @@ private slots:
     void darkTheme();
     void lightTheme();
     void openFolder();
+    void selectItem(const QModelIndex&);
 
 protected:
     void keyPressEvent(QKeyEvent* pe) override;
