@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SimplePadClass</class>
+ <widget class="QMainWindow" name="SimplePadClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>SimplePad</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QTextEdit" name="textEdit">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>600</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="action_Open_File"/>
+    <addaction name="actionO_pen_file_Read_only"/>
+    <addaction name="action_Save"/>
+    <addaction name="actionOpe_n_folder_as_project"/>
+   </widget>
+   <widget class="QMenu" name="menu_Interface">
+    <property name="title">
+     <string>&amp;Interface</string>
+    </property>
+    <widget class="QMenu" name="menu_Language">
+     <property name="title">
+      <string>&amp;Language</string>
+     </property>
+     <addaction name="actionEnglish"/>
+     <addaction name="action_Russian"/>
+    </widget>
+    <widget class="QMenu" name="menu_Theme_selection">
+     <property name="title">
+      <string>&amp;Color theme</string>
+     </property>
+     <addaction name="action_Light"/>
+     <addaction name="action_Dark"/>
+    </widget>
+    <addaction name="menu_Language"/>
+    <addaction name="menu_Theme_selection"/>
+   </widget>
+   <widget class="QMenu" name="menu_Info">
+    <property name="title">
+     <string>&amp;Info</string>
+    </property>
+    <addaction name="action_About_SimplePad"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menu_Interface"/>
+   <addaction name="menu_Info"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="action_Open_File">
+   <property name="icon">
+    <iconset resource="SimplePad.qrc">
+     <normaloff>:/Resource/open-file.png</normaloff>:/Resource/open-file.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Open file</string>
+   </property>
+  </action>
+  <action name="actionO_pen_file_Read_only">
+   <property name="icon">
+    <iconset resource="SimplePad.qrc">
+     <normaloff>:/Resource/open-file.png</normaloff>:/Resource/open-file.png</iconset>
+   </property>
+   <property name="text">
+    <string>O&amp;pen file(Read only)</string>
+   </property>
+  </action>
+  <action name="action_Save">
+   <property name="icon">
+    <iconset>
+     <normalon>:/Resource/save.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Save</string>
+   </property>
+  </action>
+  <action name="actionEnglish">
+   <property name="text">
+    <string>&amp;English</string>
+   </property>
+  </action>
+  <action name="action_Russian">
+   <property name="text">
+    <string>&amp;Russian</string>
+   </property>
+  </action>
+  <action name="action_About_SimplePad">
+   <property name="icon">
+    <iconset resource="SimplePad.qrc">
+     <normaloff>:/Resource/info.png</normaloff>:/Resource/info.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;About SimplePad</string>
+   </property>
+  </action>
+  <action name="action_Light">
+   <property name="text">
+    <string>&amp;Light</string>
+   </property>
+  </action>
+  <action name="action_Dark">
+   <property name="text">
+    <string>&amp;Dark</string>
+   </property>
+  </action>
+  <action name="actionOpe_n_folder_as_project">
+   <property name="text">
+    <string>Se&amp;lect folder as project </string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="SimplePad.qrc"/>
+ </resources>
+ <connections/>
+</ui>
