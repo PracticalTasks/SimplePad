@@ -14,7 +14,6 @@ class SimplePad : public QMainWindow
 
 public:
     SimplePad(QWidget *parent = Q_NULLPTR);
-    QAction* acttool = nullptr;
 
 private:
     Ui::SimplePadClass ui;
@@ -22,6 +21,8 @@ private:
     bool readOnly = false;
     QTranslator translator;
     QStyle *style;
+    QAction* acttool = nullptr;
+    QMdiArea* mdi = nullptr;
 
     std::unique_ptr<QTreeView> treeView;
     std::unique_ptr<QFileSystemModel> model;
