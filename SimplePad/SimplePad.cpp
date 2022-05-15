@@ -13,10 +13,16 @@ SimplePad::SimplePad(QWidget *parent)
     model = std::make_unique<QFileSystemModel>();
     treeView->setModel(model.get());
     
-    ui.gridLayout->addWidget(treeView.get());
+    //ui.gridLayout->addWidget(treeView.get());
     treeView->hide();
 
-    mdi = new QMdiArea(this);
+    mdiArea = new QMdiArea(this);
+    cenWdg = new QWidget(this);
+    setCentralWidget(cenWdg);
+    lay = new QGridLayout(this);
+    cenWdg->setLayout(lay);
+    lay->addWidget(mdiArea, 1, 0, 10, 1);
+    mdiArea->addSubWindow(new QTextEdit(this));
 
 
     connect(ui.action_Open_File, SIGNAL(triggered()), SLOT(openFile()));
@@ -48,7 +54,7 @@ void SimplePad::saveFile()
             if (file.open(QFile::WriteOnly))
             {
                 QTextStream stream(&file);
-                stream << ui.textEdit->toPlainText();
+                //stream << ui.textEdit->toPlainText();
                 file.close();
             }
         }
@@ -68,19 +74,19 @@ void SimplePad::openFile()
             if (file.open(QFile::ReadOnly | QFile::ExistingOnly))
             {
                 QTextStream stream(&file);
-                ui.textEdit->setPlainText(stream.readAll());
+                //ui.textEdit->setPlainText(stream.readAll());
                 file.close();
             }
         }
     }
     if (readOnly)
     {
-        ui.textEdit->setReadOnly(true);
+        //ui.textEdit->setReadOnly(true);
         readOnly = false;
     }
 
-    else
-        ui.textEdit->setReadOnly(false);
+    //else
+        //ui.textEdit->setReadOnly(false);
 
 }
 
@@ -109,8 +115,8 @@ void SimplePad::doPrint()
 {
     QPrinter printer;
     QPrintDialog dlg(&printer, this);
-    if (dlg.exec() == QDialog::Accepted)
-        ui.textEdit->print(&printer);
+    //if (dlg.exec() == QDialog::Accepted)
+        //ui.textEdit->print(&printer);
 }
 
 void SimplePad::keyPressEvent(QKeyEvent* pe)
@@ -126,8 +132,8 @@ void SimplePad::keyPressEvent(QKeyEvent* pe)
             saveFile();
         break;
     case Qt::Key_N:
-        if (pe->modifiers() & Qt::ControlModifier)
-            ui.textEdit->clear();
+        //if (pe->modifiers() & Qt::ControlModifier)
+        //    ui.textEdit->clear();
         break;
     case Qt::Key_Q:
         if (pe->modifiers() & Qt::ControlModifier)
@@ -192,7 +198,7 @@ void SimplePad::selectItem(const QModelIndex &index)
             if (file.open(QFile::ReadOnly | QFile::ExistingOnly))
             {
                 QTextStream stream(&file);
-                ui.textEdit->setPlainText(stream.readAll());
+                //ui.textEdit->setPlainText(stream.readAll());
                 file.close();
             }
         }

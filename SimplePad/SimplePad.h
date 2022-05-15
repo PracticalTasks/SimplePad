@@ -21,9 +21,13 @@ private:
     bool readOnly = false;
     QTranslator translator;
     QStyle *style;
-    QAction* acttool = nullptr;
-    QMdiArea* mdi = nullptr;
+    //
 
+    QAction *acttool = nullptr;
+    QMdiArea *mdiArea = nullptr;
+    QWidget* cenWdg = nullptr;
+    QGridLayout* lay;
+    //
     std::unique_ptr<QTreeView> treeView;
     std::unique_ptr<QFileSystemModel> model;
 
