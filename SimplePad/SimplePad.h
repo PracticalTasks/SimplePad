@@ -1,8 +1,11 @@
 #pragma once
 
 #include <QtWidgets>
-#include<QTranslator>
+#include <QTranslator>
+#include <QPrinter>
+#include <QPrintDialog>
 #include "ui_SimplePad.h"
+
 
 
 class SimplePad : public QMainWindow
@@ -11,10 +14,11 @@ class SimplePad : public QMainWindow
 
 public:
     SimplePad(QWidget *parent = Q_NULLPTR);
+    QAction* acttool = nullptr;
 
 private:
     Ui::SimplePadClass ui;
-
+    QToolBar* tbar = nullptr;
     bool readOnly = false;
     QTranslator translator;
     QStyle *style;
@@ -34,6 +38,7 @@ private slots:
     void lightTheme();
     void openFolder();
     void selectItem(const QModelIndex&);
+    void doPrint();
 
 protected:
     void keyPressEvent(QKeyEvent* pe) override;

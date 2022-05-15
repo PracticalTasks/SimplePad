@@ -4,5 +4,7 @@
         <file>Resource/info.txt</file>
         <file>Resource/open-file.png</file>
         <file>Resource/save.png</file>
+        <file>Resource/light.qss</file>
+        <file>Resource/dark.qss</file>
     </qresource>
 </RCC>

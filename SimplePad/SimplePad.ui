@@ -73,6 +73,7 @@
     <addaction name="actionO_pen_file_Read_only"/>
     <addaction name="action_Save"/>
     <addaction name="actionOpe_n_folder_as_project"/>
+    <addaction name="action_Print"/>
    </widget>
    <widget class="QMenu" name="menu_Interface">
     <property name="title">
@@ -174,6 +175,11 @@
   <action name="actionOpe_n_folder_as_project">
    <property name="text">
     <string>Se&amp;lect folder as project </string>
+   </property>
+  </action>
+  <action name="action_Print">
+   <property name="text">
+    <string>&amp;Print</string>
    </property>
   </action>
  </widget>
