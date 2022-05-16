@@ -17,33 +17,29 @@ public:
 
 private:
     Ui::SimplePadClass ui;
-    QToolBar* tbar = nullptr;
-    bool readOnly = false;
     QTranslator translator;
     QStyle *style;
-    //
-
+    QToolBar* tbar = nullptr;
     QAction *acttool = nullptr;
-    QMdiArea *mdiArea = nullptr;
-    QWidget* cenWdg = nullptr;
-    QGridLayout* lay;
-    //
+    QTextEdit* textEdit = nullptr;
+
     std::unique_ptr<QTreeView> treeView;
     std::unique_ptr<QFileSystemModel> model;
 
 
 private slots:
     void saveFile();
-    void openFileReadOnly();
     void openFile();
     void info();
     void enLanguage();
     void ruLanguage();
     void darkTheme();
     void lightTheme();
-    void openFolder();
     void selectItem(const QModelIndex&);
     void doPrint();
+    void newFile();
+    QTextEdit* createNewFile();
+    void toolBar(QAction* action);
 
 protected:
     void keyPressEvent(QKeyEvent* pe) override;

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>573</width>
+    <width>561</width>
     <height>375</height>
    </rect>
   </property>
@@ -20,14 +20,18 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
-   <layout class="QGridLayout" name="gridLayout_3"/>
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="0" column="0">
+     <widget class="QMdiArea" name="mdiArea"/>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>573</width>
+     <width>561</width>
      <height>22</height>
     </rect>
    </property>
@@ -35,10 +39,9 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <addaction name="action_New_file"/>
     <addaction name="action_Open_File"/>
-    <addaction name="actionO_pen_file_Read_only"/>
     <addaction name="action_Save"/>
-    <addaction name="actionOpe_n_folder_as_project"/>
     <addaction name="action_Print"/>
    </widget>
    <widget class="QMenu" name="menu_Interface">
@@ -144,8 +147,21 @@
    </property>
   </action>
   <action name="action_Print">
+   <property name="icon">
+    <iconset resource="SimplePad.qrc">
+     <normaloff>:/Resource/print.png</normaloff>:/Resource/print.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Print</string>
+   </property>
+  </action>
+  <action name="action_New_file">
+   <property name="icon">
+    <iconset resource="SimplePad.qrc">
+     <normaloff>:/Resource/Newfile.png</normaloff>:/Resource/Newfile.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;New file</string>
    </property>
   </action>
  </widget>

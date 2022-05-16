@@ -6,5 +6,7 @@
         <file>Resource/save.png</file>
         <file>Resource/light.qss</file>
         <file>Resource/dark.qss</file>
+        <file>Resource/print.png</file>
+        <file>Resource/Newfile.png</file>
     </qresource>
 </RCC>

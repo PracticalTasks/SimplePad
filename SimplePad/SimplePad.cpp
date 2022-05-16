@@ -8,23 +8,17 @@ SimplePad::SimplePad(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+    tbar = addToolBar("ToolBar");
+    tbar->addAction(QIcon(":/Resource/Newfile.png"), "New File");
+    tbar->addAction(QIcon(":/Resource/open-file.png"), "Open");
+    tbar->addAction(QIcon(":/Resource/open-file.png"), "Open(Read only)");
+    tbar->addAction(QIcon(":/Resource/save.png"), "Save");
+    tbar->addAction(QIcon(":/Resource/print.png"), "Print");
 
-    treeView = std::make_unique<QTreeView>();
-    model = std::make_unique<QFileSystemModel>();
-    treeView->setModel(model.get());
+    textEdit = new QTextEdit(this);
+    ui.mdiArea->addSubWindow(textEdit);
     
-    //ui.gridLayout->addWidget(treeView.get());
-    treeView->hide();
-
-    mdiArea = new QMdiArea(this);
-    cenWdg = new QWidget(this);
-    setCentralWidget(cenWdg);
-    lay = new QGridLayout(this);
-    cenWdg->setLayout(lay);
-    lay->addWidget(mdiArea, 1, 0, 10, 1);
-    mdiArea->addSubWindow(new QTextEdit(this));
-
-
+    connect(ui.action_New_file, SIGNAL(triggered()), SLOT(newFile()));
     connect(ui.action_Open_File, SIGNAL(triggered()), SLOT(openFile()));
     connect(ui.actionO_pen_file_Read_only, SIGNAL(triggered()), SLOT(openFileReadOnly()));
     connect(ui.action_Save, SIGNAL(triggered()), SLOT(saveFile()));
@@ -36,6 +30,7 @@ SimplePad::SimplePad(QWidget *parent)
     connect(ui.actionOpe_n_folder_as_project, SIGNAL(triggered()), SLOT(openFolder()));
     connect(treeView.get(), SIGNAL(doubleClicked(const QModelIndex &)), SLOT(selectItem(const QModelIndex &)));
     connect(ui.action_Print, SIGNAL(triggered()), SLOT(doPrint()));
+    connect(tbar, SIGNAL(actionTriggered(QAction * action)), SLOT(doPrint()));
 
 //Установка русской локализации по умолчанию
     ruLanguage();
@@ -54,7 +49,7 @@ void SimplePad::saveFile()
             if (file.open(QFile::WriteOnly))
             {
                 QTextStream stream(&file);
-                //stream << ui.textEdit->toPlainText();
+                stream << textEdit->toPlainText();
                 file.close();
             }
         }
@@ -66,6 +61,19 @@ void SimplePad::openFile()
     QString str = QFileDialog::getOpenFileName(this, tr("Open file"),
         QDir::currentPath(), tr("Text file(*.txt);; All(*.*)"));
 
+    //QTextEdit* textEdit = nullptr;
+
+    //Почему то возвращает nullptr в не зависимости от активности подокон
+    //QMdiSubWindow* actSubWnd = ui.mdiArea->activeSubWindow();
+
+    //if (actSubWnd)
+    //{
+    //    QWidget* Wdg = actSubWnd->widget();
+    //    textEdit = qobject_cast<QTextEdit*>(Wdg);
+    //}
+    
+    
+
     if (str.length() > 0)
     {
         if (!str.isEmpty())
@@ -74,29 +82,13 @@ void SimplePad::openFile()
             if (file.open(QFile::ReadOnly | QFile::ExistingOnly))
             {
                 QTextStream stream(&file);
-                //ui.textEdit->setPlainText(stream.readAll());
+                if(textEdit)
+                    textEdit->setPlainText(stream.readAll());
                 file.close();
             }
         }
     }
-    if (readOnly)
-    {
-        //ui.textEdit->setReadOnly(true);
-        readOnly = false;
-    }
-
-    //else
-        //ui.textEdit->setReadOnly(false);
-
 }
-
-void SimplePad::openFileReadOnly()
-{
-    readOnly = true;
-    openFile();
-}
-
-
 
 void SimplePad::info()
 {
@@ -115,8 +107,29 @@ void SimplePad::doPrint()
 {
     QPrinter printer;
     QPrintDialog dlg(&printer, this);
-    //if (dlg.exec() == QDialog::Accepted)
-        //ui.textEdit->print(&printer);
+    if (dlg.exec() == QDialog::Accepted)
+        textEdit->print(&printer);
+}
+
+void SimplePad::newFile()
+{
+    createNewFile()->show();
+}
+
+void SimplePad::toolBar(QAction* action)
+{
+
+}
+
+QTextEdit* SimplePad::createNewFile()
+{
+    QTextEdit* txtEdt = new QTextEdit(this);
+    ui.mdiArea->addSubWindow(txtEdt);
+    txtEdt->setAttribute(Qt::WA_DeleteOnClose);
+    txtEdt->setWindowTitle("Unnamed Document");
+    txtEdt->setWindowIcon(QPixmap(":/filenew.png"));
+
+    return txtEdt;
 }
 
 void SimplePad::keyPressEvent(QKeyEvent* pe)
@@ -132,8 +145,8 @@ void SimplePad::keyPressEvent(QKeyEvent* pe)
             saveFile();
         break;
     case Qt::Key_N:
-        //if (pe->modifiers() & Qt::ControlModifier)
-        //    ui.textEdit->clear();
+        if (pe->modifiers() & Qt::ControlModifier)
+            textEdit->clear();
         break;
     case Qt::Key_Q:
         if (pe->modifiers() & Qt::ControlModifier)
@@ -172,20 +185,6 @@ void SimplePad::darkTheme()
     this->setStyleSheet(str);
 }
 
-void SimplePad::openFolder()
-{
-    QString str = QFileDialog::getExistingDirectory(this, tr("Select folder"), "", QFileDialog::ShowDirsOnly);
-    model->setRootPath(QDir::currentPath());
-    treeView->setRootIndex(model->index(str));
-    for (int i = 1; i < model->columnCount(); ++i)
-        treeView->hideColumn(i);
-
-    treeView->setHeaderHidden(true);
-    treeView->show();
-
-
-}
-
 void SimplePad::selectItem(const QModelIndex &index)
 {
     auto str = model->filePath(index);
@@ -198,7 +197,7 @@ void SimplePad::selectItem(const QModelIndex &index)
             if (file.open(QFile::ReadOnly | QFile::ExistingOnly))
             {
                 QTextStream stream(&file);
-                //ui.textEdit->setPlainText(stream.readAll());
+                textEdit->setPlainText(stream.readAll());
                 file.close();
             }
         }
