@@ -17,7 +17,6 @@ public:
 private:
     Ui::SimplePadClass ui;
 
-    bool readOnly = false;
     QTranslator translator;
     QStyle *style;
 
@@ -27,7 +26,6 @@ private:
 
 private slots:
     void saveFile();
-    void openFileReadOnly();
     void openFile();
     void info();
     void enLanguage();

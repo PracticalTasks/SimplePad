@@ -16,13 +16,11 @@ SimplePad::SimplePad(QWidget *parent)
     ui.gridLayout->addWidget(treeView.get());
     treeView->hide();
 
-    ui.mainToolBar->addAction(QIcon(":/Resource/open-file.png"), "Open");
-    ui.mainToolBar->addAction(QIcon(":/Resource/open-file.png"), "Open(Read only)");
-    ui.mainToolBar->addAction(QIcon(":/Resource/save.png"), "Save");
-    ui.mainToolBar->addAction(QIcon(":/Resource/print.png"), "Print");
+    ui.mainToolBar->addAction(QIcon(":/Resource/open-file.png"), "Open", this, SLOT(openFile()));
+    ui.mainToolBar->addAction(QIcon(":/Resource/save.png"), "Save", this, SLOT(saveFile()));
+    ui.mainToolBar->addAction(QIcon(":/Resource/print.png"), "Print", this, SLOT(doPrint()));
 
     connect(ui.action_Open_File, SIGNAL(triggered()), SLOT(openFile()));
-    connect(ui.actionO_pen_file_Read_only, SIGNAL(triggered()), SLOT(openFileReadOnly()));
     connect(ui.action_Save, SIGNAL(triggered()), SLOT(saveFile()));
     connect(ui.actionEnglish, SIGNAL(triggered()), SLOT(enLanguage()));
     connect(ui.action_Russian, SIGNAL(triggered()), SLOT(ruLanguage()));
@@ -32,6 +30,7 @@ SimplePad::SimplePad(QWidget *parent)
     connect(ui.actionOpe_n_folder_as_project, SIGNAL(triggered()), SLOT(openFolder()));
     connect(treeView.get(), SIGNAL(doubleClicked(const QModelIndex &)), SLOT(selectItem(const QModelIndex &)));
     connect(ui.action_Print, SIGNAL(triggered()), SLOT(doPrint()));
+    connect(ui.mainToolBar, SIGNAL(actionTriggered(QAction*)), SLOT(toolBar(QAction*)));
 
 //Установка русской локализации по умолчанию
     ruLanguage();
@@ -75,24 +74,7 @@ void SimplePad::openFile()
             }
         }
     }
-    if (readOnly)
-    {
-        ui.textEdit->setReadOnly(true);
-        readOnly = false;
-    }
-
-    else
-        ui.textEdit->setReadOnly(false);
-
 }
-
-void SimplePad::openFileReadOnly()
-{
-    readOnly = true;
-    openFile();
-}
-
-
 
 void SimplePad::info()
 {

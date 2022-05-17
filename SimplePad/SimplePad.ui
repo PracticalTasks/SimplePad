@@ -70,7 +70,6 @@
      <string>&amp;File</string>
     </property>
     <addaction name="action_Open_File"/>
-    <addaction name="actionO_pen_file_Read_only"/>
     <addaction name="action_Save"/>
     <addaction name="action_Print"/>
     <addaction name="actionOpe_n_folder_as_project"/>
