@@ -72,6 +72,7 @@
     <addaction name="action_Open_File"/>
     <addaction name="actionO_pen_file_Read_only"/>
     <addaction name="action_Save"/>
+    <addaction name="action_Print"/>
     <addaction name="actionOpe_n_folder_as_project"/>
    </widget>
    <widget class="QMenu" name="menu_Interface">
@@ -174,6 +175,15 @@
   <action name="actionOpe_n_folder_as_project">
    <property name="text">
     <string>Se&amp;lect folder as project </string>
+   </property>
+  </action>
+  <action name="action_Print">
+   <property name="icon">
+    <iconset resource="SimplePad.qrc">
+     <normaloff>:/Resource/print.png</normaloff>:/Resource/print.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Print</string>
    </property>
   </action>
  </widget>

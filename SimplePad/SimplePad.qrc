@@ -4,5 +4,6 @@
         <file>Resource/info.txt</file>
         <file>Resource/open-file.png</file>
         <file>Resource/save.png</file>
+        <file>Resource/print.png</file>
     </qresource>
 </RCC>

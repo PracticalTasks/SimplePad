@@ -16,7 +16,10 @@ SimplePad::SimplePad(QWidget *parent)
     ui.gridLayout->addWidget(treeView.get());
     treeView->hide();
 
-    //ui.mainToolBar->
+    ui.mainToolBar->addAction(QIcon(":/Resource/open-file.png"), "Open");
+    ui.mainToolBar->addAction(QIcon(":/Resource/open-file.png"), "Open(Read only)");
+    ui.mainToolBar->addAction(QIcon(":/Resource/save.png"), "Save");
+    ui.mainToolBar->addAction(QIcon(":/Resource/print.png"), "Print");
 
     connect(ui.action_Open_File, SIGNAL(triggered()), SLOT(openFile()));
     connect(ui.actionO_pen_file_Read_only, SIGNAL(triggered()), SLOT(openFileReadOnly()));
