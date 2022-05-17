@@ -37,6 +37,7 @@ private slots:
     void openFolder();
     void selectItem(const QModelIndex&);
     void doPrint();
+    void toolBar(QAction*);
 
 protected:
     void keyPressEvent(QKeyEvent* pe) override;

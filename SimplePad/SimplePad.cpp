@@ -132,6 +132,11 @@ void SimplePad::keyPressEvent(QKeyEvent* pe)
     }
 }
 
+void SimplePad::toolBar(QAction* action)
+{
+
+}
+
 void SimplePad::doPrint()
 {
     QPrinter printer;
