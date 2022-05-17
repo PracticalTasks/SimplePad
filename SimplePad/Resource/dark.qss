@@ -1,0 +1,6 @@
+QMainWindow{background: #505050}
+QMenuBar{background: #505050; color: white}
+QMenuBar::item:selected {background: #707070}
+QMenu{background: #101010;color: white}
+QMenu::item:selected {background: #707070; border-radius: 4px}
+QTreeView,QTextEdit{background: #202020; color: #D0D080}

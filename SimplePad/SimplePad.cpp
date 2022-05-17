@@ -143,17 +143,16 @@ void SimplePad::enLanguage()
 
 void SimplePad::lightTheme()
 {
-    this->setStyleSheet("QMainWindow{background: #EFEFEF}QMenuBar{background: white; \
-    color: black} QMenuBar::item:selected {background: #C0C0C0} QMenu{background: white;\
-    color: black}QMenu::item:selected {background: #0080D0; border-radius: 4px}QTreeView,QTextEdit{background: white; color: black}");
-
+    this->setStyleSheet(nullptr);
 }
 
 void SimplePad::darkTheme()
 {
-    this->setStyleSheet("QMainWindow{background: #505050}QMenuBar{background: #505050; \
-    color: white} QMenuBar::item:selected {background: #707070} QMenu{background: #101010;\
-    color: white}QMenu::item:selected {background: #707070; border-radius: 4px}QTreeView,QTextEdit{background: #202020; color: #D0D080}");
+    QFile file(":/Resource/dark.qss");
+    file.open(QIODevice::ReadOnly);
+    QString str = file.readAll();
+    file.close();
+    this->setStyleSheet(str);
 }
 
 void SimplePad::openFolder()
