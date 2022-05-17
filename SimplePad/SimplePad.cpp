@@ -16,6 +16,8 @@ SimplePad::SimplePad(QWidget *parent)
     ui.gridLayout->addWidget(treeView.get());
     treeView->hide();
 
+    //ui.mainToolBar->
+
     connect(ui.action_Open_File, SIGNAL(triggered()), SLOT(openFile()));
     connect(ui.actionO_pen_file_Read_only, SIGNAL(triggered()), SLOT(openFileReadOnly()));
     connect(ui.action_Save, SIGNAL(triggered()), SLOT(saveFile()));
