@@ -31,6 +31,7 @@ SimplePad::SimplePad(QWidget *parent)
     connect(ui.action_Light, SIGNAL(triggered()), SLOT(lightTheme()));
     connect(ui.actionOpe_n_folder_as_project, SIGNAL(triggered()), SLOT(openFolder()));
     connect(treeView.get(), SIGNAL(doubleClicked(const QModelIndex &)), SLOT(selectItem(const QModelIndex &)));
+    connect(ui.action_Print, SIGNAL(triggered()), SLOT(doPrint()));
 
 //Установка русской локализации по умолчанию
     ruLanguage();
@@ -129,6 +130,14 @@ void SimplePad::keyPressEvent(QKeyEvent* pe)
     default:
         QWidget::keyPressEvent(pe);
     }
+}
+
+void SimplePad::doPrint()
+{
+    QPrinter printer;
+    QPrintDialog dlg(&printer, this);
+    if (dlg.exec() == QDialog::Accepted)
+        ui.textEdit->print(&printer);
 }
 
 void SimplePad::ruLanguage()

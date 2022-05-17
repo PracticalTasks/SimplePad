@@ -2,6 +2,8 @@
 
 #include <QtWidgets>
 #include<QTranslator>
+#include<QPrinter>
+#include<QPrintDialog>
 #include "ui_SimplePad.h"
 
 
@@ -34,6 +36,7 @@ private slots:
     void lightTheme();
     void openFolder();
     void selectItem(const QModelIndex&);
+    void doPrint();
 
 protected:
     void keyPressEvent(QKeyEvent* pe) override;
