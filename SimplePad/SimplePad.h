@@ -39,7 +39,7 @@ private slots:
     void doPrint();
     void newFile();
     QTextEdit* createNewFile();
-    void toolBar(QAction* action);
+    void toolBar(QAction*);
 
 protected:
     void keyPressEvent(QKeyEvent* pe) override;

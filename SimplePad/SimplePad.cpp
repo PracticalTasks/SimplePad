@@ -30,7 +30,7 @@ SimplePad::SimplePad(QWidget *parent)
     connect(ui.actionOpe_n_folder_as_project, SIGNAL(triggered()), SLOT(openFolder()));
     connect(treeView.get(), SIGNAL(doubleClicked(const QModelIndex &)), SLOT(selectItem(const QModelIndex &)));
     connect(ui.action_Print, SIGNAL(triggered()), SLOT(doPrint()));
-    connect(tbar, SIGNAL(actionTriggered(QAction * action)), SLOT(doPrint()));
+    connect(tbar, SIGNAL(actionTriggered(QAction *)), SLOT(toolBar(QAction*)));
 
 //Установка русской локализации по умолчанию
     ruLanguage();
@@ -73,7 +73,6 @@ void SimplePad::openFile()
     //}
     
     
-
     if (str.length() > 0)
     {
         if (!str.isEmpty())
@@ -118,7 +117,7 @@ void SimplePad::newFile()
 
 void SimplePad::toolBar(QAction* action)
 {
-
+   
 }
 
 QTextEdit* SimplePad::createNewFile()
