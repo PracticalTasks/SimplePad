@@ -16,9 +16,10 @@ SimplePad::SimplePad(QWidget *parent)
     ui.gridLayout->addWidget(treeView.get());
     treeView->hide();
 
-    ui.mainToolBar->addAction(QIcon(":/Resource/open-file.png"), "Open", this, SLOT(openFile()));
-    ui.mainToolBar->addAction(QIcon(":/Resource/save.png"), "Save", this, SLOT(saveFile()));
-    ui.mainToolBar->addAction(QIcon(":/Resource/print.png"), "Print", this, SLOT(doPrint()));
+    ui.mainToolBar->addAction(QIcon(":/Resource/open-file.png"), tr("Open"), this, SLOT(openFile()));
+    ui.mainToolBar->addAction(QIcon(":/Resource/save.png"), tr("Save"), this, SLOT(saveFile()));
+    ui.mainToolBar->addAction(QIcon(":/Resource/print.png"), tr("Print"), this, SLOT(doPrint()));
+    ui.mainToolBar->addAction(QIcon(":/Resource/font.png"), tr("Font edit"), this, SLOT(setFont()));
 
     connect(ui.action_Open_File, SIGNAL(triggered()), SLOT(openFile()));
     connect(ui.action_Save, SIGNAL(triggered()), SLOT(saveFile()));
@@ -30,11 +31,15 @@ SimplePad::SimplePad(QWidget *parent)
     connect(ui.actionOpe_n_folder_as_project, SIGNAL(triggered()), SLOT(openFolder()));
     connect(treeView.get(), SIGNAL(doubleClicked(const QModelIndex &)), SLOT(selectItem(const QModelIndex &)));
     connect(ui.action_Print, SIGNAL(triggered()), SLOT(doPrint()));
-    connect(ui.mainToolBar, SIGNAL(actionTriggered(QAction*)), SLOT(toolBar(QAction*)));
+    connect(ui.actionTest_Paint, SIGNAL(triggered()), SLOT(testPaint()));
 
 //Установка русской локализации по умолчанию
     ruLanguage();
     lightTheme();
+
+    paintWdg = std::make_unique<MyPaint>(this);
+    paintWdg->setWindowTitle("Paint widget");
+
 }
 
 void SimplePad::saveFile()
@@ -114,8 +119,24 @@ void SimplePad::keyPressEvent(QKeyEvent* pe)
     }
 }
 
-void SimplePad::toolBar(QAction* action)
+void SimplePad::setFont()
 {
+    QFont font = ui.textEdit->textCursor().charFormat().font();
+    QFontDialog fntDlg(font, this);
+    bool b[] = { true };
+    font = fntDlg.getFont(b);
+    if (b)
+    {
+        QTextCharFormat fmt;
+        fmt.setFont(font);
+        ui.textEdit->textCursor().setCharFormat(fmt);
+    }
+}
+
+void SimplePad::testPaint()
+{
+    paintWdg->show();
+    paintWdg->resize(700, 400);
 
 }
 
@@ -159,7 +180,6 @@ void SimplePad::openFolder()
 {
     QString str = QFileDialog::getExistingDirectory(this, tr("Select folder"), "", QFileDialog::ShowDirsOnly);
     model->setRootPath(QDir::currentPath());
-    //model->setFilter(QDir::AllDirs );
     treeView->setRootIndex(model->index(str));
     for (int i = 1; i < model->columnCount(); ++i)
         treeView->hideColumn(i);
@@ -186,5 +206,5 @@ void SimplePad::selectItem(const QModelIndex &index)
             }
         }
     }
-
 }
+

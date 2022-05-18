@@ -5,7 +5,9 @@
 #include<QPrinter>
 #include<QPrintDialog>
 #include "ui_SimplePad.h"
+#include "MyPaint.h"
 
+class MyPaint;
 
 class SimplePad : public QMainWindow
 {
@@ -18,10 +20,12 @@ private:
     Ui::SimplePadClass ui;
 
     QTranslator translator;
-    QStyle *style;
+    QStyle *style = nullptr;
 
     std::unique_ptr<QTreeView> treeView;
     std::unique_ptr<QFileSystemModel> model;
+    
+    std::unique_ptr<MyPaint> paintWdg;
 
 
 private slots:
@@ -35,7 +39,8 @@ private slots:
     void openFolder();
     void selectItem(const QModelIndex&);
     void doPrint();
-    void toolBar(QAction*);
+    void setFont();
+    void testPaint();
 
 protected:
     void keyPressEvent(QKeyEvent* pe) override;

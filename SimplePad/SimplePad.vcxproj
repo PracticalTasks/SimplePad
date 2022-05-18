@@ -88,11 +88,15 @@
     <QtRcc Include="SimplePad.qrc" />
     <QtUic Include="SimplePad.ui" />
     <QtMoc Include="SimplePad.h" />
+    <ClCompile Include="MyPaint.cpp" />
     <ClCompile Include="SimplePad.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtTranslation Include="simplepad_ru.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MyPaint.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
