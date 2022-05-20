@@ -7,5 +7,9 @@
         <file>Resource/print.png</file>
         <file>Resource/dark.qss</file>
         <file>Resource/font.png</file>
+        <file>Resource/paint.png</file>
+        <file>Resource/centr.png</file>
+        <file>Resource/left.png</file>
+        <file>Resource/right.png</file>
     </qresource>
 </RCC>

@@ -1,34 +1,34 @@
 #include"MyPaint.h"
 
-MyPaint::MyPaint(QMainWindow* parent) : QMainWindow(parent)
+MyPaint::MyPaint(QMainWindow* parent)
+    : QMainWindow(parent)
 {
+    srand(time(0));
 }
 
 void MyPaint::paintEvent(QPaintEvent* event)
 {
-    QPointF points[] = {
-        QPointF(340, 10),
-        QPointF(290,110),
-        QPointF(390,110)
-    };
-
-    QPen pen(Qt::red, 3, Qt::SolidLine);
-    QPainterPath star;
     qp.begin(this);
-    qp.setPen(pen);
     
-
-    if (countLftBtn)
+    if (!vec.empty())
     {
-        switch (countLftBtn)
+        for (int i = 0; i < vec.size(); ++i)
         {
-        case 3:     
-            qp.drawPolygon(points, sizeof(points) / sizeof(points[0]));     
-        case 2:
-            qp.drawEllipse(150, 10, 100, 100);
-        case 1:
-            qp.drawRect(10, 10, 100, 100);
+            qp.setPen(vec[i].pen);
+            switch (vec[i].m_shapes)
+            {
+            case shapes::RECT:
+                qp.drawRect(vec[i].pnt.x(), vec[i].pnt.y(), 100, 100);          
+                break;
 
+            case shapes::ELLIPSE:
+                qp.drawEllipse(vec[i].pnt.x(), vec[i].pnt.y(), 100, 100);
+                break;
+
+            case shapes::RECTANGLE:
+                qp.drawPolygon(vec[i].rectangle, sizeof(vec[i].rectangle) / sizeof(vec[i].rectangle[0]));
+                break;
+            }
         }
     }
 
@@ -39,13 +39,45 @@ void MyPaint::mousePressEvent(QMouseEvent* pe)
 {
     if (pe->button() == Qt::LeftButton)
     {
-        if (countLftBtn < 3)
-            ++countLftBtn;
-        //else if (countLftBtn == 3)
-        //{
-        //    countLftBtn = 1;
-        //    ++countIter;
-        //}
+        szScreen = this->size();
+        if ((shape.pnt.x() + 100) > szScreen.width())
+        {
+            endLine.push_back(shape.pnt.x());
+            shape.pnt.setX(10);
+            shape.pnt.setY(shape.pnt.y() + 120);
+        }
+
+        shape.setFwdRectangle();
+        shape.m_shapes = static_cast<shapes>(++countLftBtn);
+
+        QColor clr(rand() % 255, rand() % 255, rand() % 255);
+        QPen pen(clr, 3, Qt::SolidLine);
+        shape.pen = pen;
+        vec.push_back(shape);
+        shape.pnt.setX(shape.pnt.x() + 120);
+        
+
+        if (countLftBtn == 3)
+            countLftBtn = 0;
+
     }
+    else if (pe->button() == Qt::RightButton)
+    {
+        if (!vec.empty())
+        {
+            vec.pop_back();
+            if (shape.pnt.x() - 120 < 0)
+            {
+                shape.pnt.setX(endLine.back() - 120);
+                endLine.pop_back();
+                shape.pnt.setY(shape.pnt.y() - 120);
+            }
+            else
+                shape.pnt.setX(shape.pnt.x() - 120);
+
+            shape.setFwdRectangle();
+        }
+    }
+
     this->repaint();
 }

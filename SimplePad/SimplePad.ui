@@ -73,7 +73,7 @@
     <addaction name="action_Save"/>
     <addaction name="action_Print"/>
     <addaction name="actionOpe_n_folder_as_project"/>
-    <addaction name="actionTest_Paint"/>
+    <addaction name="actionPaint_shapes"/>
    </widget>
    <widget class="QMenu" name="menu_Interface">
     <property name="title">
@@ -191,9 +191,9 @@
     <string>Test Font</string>
    </property>
   </action>
-  <action name="actionTest_Paint">
+  <action name="actionPaint_shapes">
    <property name="text">
-    <string>Test Paint</string>
+    <string>Paint shapes</string>
    </property>
   </action>
  </widget>

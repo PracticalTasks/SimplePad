@@ -40,7 +40,7 @@ private slots:
     void selectItem(const QModelIndex&);
     void doPrint();
     void setFont();
-    void testPaint();
+    void paintShapes();
 
 protected:
     void keyPressEvent(QKeyEvent* pe) override;
