@@ -89,6 +89,7 @@
     <QtUic Include="SimplePad.ui" />
     <QtMoc Include="SimplePad.h" />
     <ClCompile Include="MyPaint.cpp" />
+    <ClCompile Include="Shape.cpp" />
     <ClCompile Include="SimplePad.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -97,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyPaint.h" />
+    <ClInclude Include="Shape.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -73,7 +73,6 @@
     <addaction name="action_Save"/>
     <addaction name="action_Print"/>
     <addaction name="actionOpe_n_folder_as_project"/>
-    <addaction name="actionPaint_shapes"/>
    </widget>
    <widget class="QMenu" name="menu_Interface">
     <property name="title">
