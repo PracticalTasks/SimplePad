@@ -125,11 +125,12 @@ void SimplePad::keyPressEvent(QKeyEvent* pe)
 
 void SimplePad::setFont()
 {
+    ui.textEdit->setFont(QFontDialog::getFont(0, ui.textEdit->font()));
+
     //QFont font = ui.textEdit->textCursor().charFormat().font();
     //QFontDialog fntDlg(font, this);
     //bool ok;
     //font = fntDlg.getFont(&ok);
-    ui.textEdit->setFont(QFontDialog::getFont(0, ui.textEdit->font()));
     //if (ok)
     //{
     //    QTextCharFormat fmt;
