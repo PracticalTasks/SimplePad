@@ -50,7 +50,7 @@ void MyPaint::mousePressEvent(QMouseEvent* pe)
         shape.setFwdRectangle();
         shape.m_shapes = static_cast<shapes>(++countLftBtn);
 
-        QColor clr(rand() % 255, rand() % 255, rand() % 255);
+        QColor clr(rand() % 256, rand() % 256, rand() % 256);
         QPen pen(clr, 3, Qt::SolidLine);
         shape.pen = pen;
         vec.push_back(shape);

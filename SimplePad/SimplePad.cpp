@@ -4,17 +4,21 @@
 
 #pragma warning(disable : 4834)
 
-SimplePad::SimplePad(QWidget *parent)
+SimplePad::SimplePad(QMainWindow *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
 
-    treeView = std::make_unique<QTreeView>();
-    model = std::make_unique<QFileSystemModel>();
-    treeView->setModel(model.get());
+    model = new QFileSystemModel(this);
+    ui.treeView->setModel(model);
     
-    ui.gridLayout->addWidget(treeView.get());
-    treeView->hide();
+    model->setRootPath(QDir::currentPath());
+    ui.treeView->setRootIndex(model->index(QDir::currentPath()));
+    for (int i = 1; i < model->columnCount(); ++i)
+        ui.treeView->hideColumn(i);
+    ui.treeView->setHeaderHidden(true);
+
+    ui.lineEdit->setText(QDir::currentPath());
 
     ui.mainToolBar->addAction(QIcon(":/Resource/open-file.png"), tr("Open"), this, SLOT(openFile()));
     ui.mainToolBar->addAction(QIcon(":/Resource/save.png"), tr("Save"), this, SLOT(saveFile()));
@@ -24,6 +28,8 @@ SimplePad::SimplePad(QWidget *parent)
     ui.mainToolBar->addAction(QIcon(":/Resource/centr.png"), tr("Alignment center"), this, [&] {ui.textEdit->setAlignment(Qt::AlignCenter); });
     ui.mainToolBar->addAction(QIcon(":/Resource/right.png"), tr("Alignment center"), this, [&] {ui.textEdit->setAlignment(Qt::AlignRight); });
     ui.mainToolBar->addAction(QIcon(":/Resource/paint.png"), tr("Paint shapes"), this, SLOT(paintShapes()));
+    ui.mainToolBar->addAction(QIcon(":/Resource/date.png"), tr("Date and time"), this, SLOT(dateAndTime()));
+    ui.mainToolBar->addAction(QIcon(":/Resource/date.png"), tr("Find file"), this, SLOT(findFile()));
 
     connect(ui.action_Open_File, SIGNAL(triggered()), SLOT(openFile()));
     connect(ui.action_Save, SIGNAL(triggered()), SLOT(saveFile()));
@@ -33,18 +39,20 @@ SimplePad::SimplePad(QWidget *parent)
     connect(ui.action_Dark, SIGNAL(triggered()), SLOT(darkTheme()));
     connect(ui.action_Light, SIGNAL(triggered()), SLOT(lightTheme()));
     connect(ui.actionOpe_n_folder_as_project, SIGNAL(triggered()), SLOT(openFolder()));
-    connect(treeView.get(), SIGNAL(doubleClicked(const QModelIndex &)), SLOT(selectItem(const QModelIndex &)));
+    connect(ui.treeView, SIGNAL(doubleClicked(const QModelIndex &)), SLOT(selectItem(const QModelIndex &)));
     connect(ui.action_Print, SIGNAL(triggered()), SLOT(doPrint()));
     connect(ui.actionPaint_shapes, SIGNAL(triggered()), SLOT(paintShapes()));
-
+    connect(ui.lineEdit, SIGNAL(editingFinished()), SLOT(setPath()));
+    //connect(ui.lineSearch, SIGNAL(editingFinished()), SLOT(findFile()));
+    connect(ui.treeView, SIGNAL(expanded(const QModelIndex &)), SLOT(expandedPath(const QModelIndex &)));
+    connect(ui.treeView, SIGNAL(collapsed(const QModelIndex &)), SLOT(collapsedPath(const QModelIndex&)));
+    
 //Установка русской локализации по умолчанию
     ruLanguage();
     lightTheme();
 
-    paintWdg = std::make_unique<MyPaint>(this);
-    paintWdg->setWindowTitle("Paint widget");
-
 }
+
 
 void SimplePad::saveFile()
 {
@@ -63,6 +71,15 @@ void SimplePad::saveFile()
             }
         }
     }
+}
+
+void SimplePad::setIndex(const QString& str)
+{
+    //model->setRootPath(QDir::currentPath());
+    ui.treeView->setRootIndex(model->index(str));
+    for (int i = 1; i < model->columnCount(); ++i)
+        ui.treeView->hideColumn(i);
+    ui.treeView->setHeaderHidden(true);
 }
 
 void SimplePad::openFile()
@@ -127,23 +144,85 @@ void SimplePad::setFont()
 {
     ui.textEdit->setFont(QFontDialog::getFont(0, ui.textEdit->font()));
 
-    //QFont font = ui.textEdit->textCursor().charFormat().font();
-    //QFontDialog fntDlg(font, this);
-    //bool ok;
-    //font = fntDlg.getFont(&ok);
-    //if (ok)
-    //{
-    //    QTextCharFormat fmt;
-    //    fmt.setFont(font);
-    //    ui.textEdit->textCursor().setCharFormat(fmt);
-    //}
 }
 
 void SimplePad::paintShapes()
 {
-    paintWdg->show();
-    paintWdg->resize(700, 400);
+    if (!paintWnd)
+    {
+        paintWnd = new MyPaint(this);
+        paintWnd->setWindowTitle("Paint widget");
+    }
+        
+    paintWnd->show();
+    paintWnd->resize(700, 400);
 
+}
+
+void SimplePad::dateAndTime()
+{
+    QTime time = QTime::currentTime();
+    QDate date = QDate::currentDate();
+    QString months[] = { "", " января ", " февраля ", " марта ",
+                             " апреля ", " мая ", " июня ",
+                             " июля ", " августа ", " сентября ",
+                             " октября ", " ноября ", " декабря "
+    };
+
+
+    QString strDate =QString::number(time.hour()) + ':' + QString::number(time.minute()) + ' ' + QString::number(date.day()) + 
+        months[date.month()] + QString::number(date.year());
+    ui.textEdit->insertPlainText(strDate);
+    
+}
+
+void SimplePad::setPath()
+{
+    QString str = ui.lineEdit->text();
+    auto idx = model->index(str);
+    if (idx.isValid())
+    {
+        ui.treeView->setRootIndex(idx);
+        setIndex(str);
+        strValidPath = str;      //Save the valid path
+    }
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.critical(ui.lineEdit, "Exploer", "Path not found");
+        ui.lineEdit->setText(strValidPath);
+    }
+
+}
+
+void SimplePad::expandedPath(const QModelIndex& index)
+{
+    auto str = model->filePath(index);
+    ui.lineEdit->setText(str);
+    strValidPath = str;
+}
+
+void SimplePad::collapsedPath(const QModelIndex& index)
+{
+    auto str = model->filePath(index.parent());
+    ui.lineEdit->setText(str);
+    strValidPath = str;
+}
+
+void SimplePad::findFile()
+{
+    if (!searchWdg)
+    {
+        searchWdg = std::make_unique<SearchWdg>(strValidPath);
+       // workerThread->moveToThread(&trWorker);
+       // connect(this, SIGNAL(startSearch(QString&)), searchWdg.get(), SLOT(doWork(QString&)));
+        //trWorker.start();
+    }
+    
+    
+    //emit startSearch(strValidPath);
+
+    //searchWdg = std::make_unique<SearchWdg>(strValidPath);
 }
 
 void SimplePad::doPrint()
@@ -185,13 +264,9 @@ void SimplePad::darkTheme()
 void SimplePad::openFolder()
 {
     QString str = QFileDialog::getExistingDirectory(this, tr("Select folder"), "", QFileDialog::ShowDirsOnly);
-    model->setRootPath(QDir::currentPath());
-    treeView->setRootIndex(model->index(str));
-    for (int i = 1; i < model->columnCount(); ++i)
-        treeView->hideColumn(i);
-    treeView->setHeaderHidden(true);
-    treeView->show();
-
+    ui.lineEdit->setText(str);
+    strValidPath = str;
+    setIndex(str);
 
 }
 

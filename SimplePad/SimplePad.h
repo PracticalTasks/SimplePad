@@ -1,32 +1,44 @@
 #pragma once
 
-#include <QtWidgets>
+#include<QtWidgets>
 #include<QTranslator>
 #include<QPrinter>
 #include<QPrintDialog>
 #include "ui_SimplePad.h"
 #include "MyPaint.h"
+#include "SearchWdg.h"
+//#include "WorkerThread.h"
+
+
 
 class MyPaint;
+//class SearchWdg;
 
 class SimplePad : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    SimplePad(QWidget *parent = Q_NULLPTR);
+    SimplePad(QMainWindow *parent = Q_NULLPTR);
 
 private:
     Ui::SimplePadClass ui;
 
     QTranslator translator;
-    QStyle *style = nullptr;
+    QStyle* style = nullptr;
+    QFileSystemModel* model = nullptr;
+    MyPaint* paintWnd = nullptr;
+    QThread trWorker;
 
-    std::unique_ptr<QTreeView> treeView;
-    std::unique_ptr<QFileSystemModel> model;
     
-    std::unique_ptr<MyPaint> paintWdg;
+    std::unique_ptr<SearchWdg> searchWdg;
 
+    QString strValidPath = QDir::currentPath();
+
+    void setIndex(const QString &str);
+
+signals:
+    void startSearch(QString &validPath);
 
 private slots:
     void saveFile();
@@ -41,6 +53,11 @@ private slots:
     void doPrint();
     void setFont();
     void paintShapes();
+    void dateAndTime();
+    void setPath();
+    void expandedPath(const QModelIndex &);
+    void collapsedPath(const QModelIndex&);
+    void findFile();
 
 protected:
     void keyPressEvent(QKeyEvent* pe) override;
