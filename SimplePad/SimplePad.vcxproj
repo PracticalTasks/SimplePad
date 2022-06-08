@@ -95,7 +95,6 @@
     <QtUic Include="SimplePad.ui" />
     <QtMoc Include="SimplePad.h" />
     <ClCompile Include="MyPaint.cpp" />
-    <ClCompile Include="SearchFile.cpp" />
     <ClCompile Include="SearchWdg.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="SimplePad.cpp" />
@@ -106,7 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyPaint.h" />
-    <ClInclude Include="WorkerThread.h" />
+    <QtMoc Include="WorkerThread.h" />
     <QtMoc Include="SearchWdg.h" />
     <ClInclude Include="Shape.h" />
   </ItemGroup>

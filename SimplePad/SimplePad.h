@@ -7,12 +7,10 @@
 #include "ui_SimplePad.h"
 #include "MyPaint.h"
 #include "SearchWdg.h"
-//#include "WorkerThread.h"
-
 
 
 class MyPaint;
-//class SearchWdg;
+class SearchWdg;
 
 class SimplePad : public QMainWindow
 {
@@ -20,6 +18,7 @@ class SimplePad : public QMainWindow
 
 public:
     SimplePad(QMainWindow *parent = Q_NULLPTR);
+    ~SimplePad();
 
 private:
     Ui::SimplePadClass ui;
@@ -28,12 +27,10 @@ private:
     QStyle* style = nullptr;
     QFileSystemModel* model = nullptr;
     MyPaint* paintWnd = nullptr;
-    QThread trWorker;
-
-    
     std::unique_ptr<SearchWdg> searchWdg;
 
     QString strValidPath = QDir::currentPath();
+    std::vector<SearchWdg*> arrDeletePtr;
 
     void setIndex(const QString &str);
 

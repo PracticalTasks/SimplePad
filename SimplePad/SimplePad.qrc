@@ -12,5 +12,6 @@
         <file>Resource/left.png</file>
         <file>Resource/right.png</file>
         <file>Resource/date.png</file>
+        <file>Resource/search.png</file>
     </qresource>
 </RCC>

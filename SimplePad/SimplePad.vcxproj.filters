@@ -46,9 +46,6 @@
     <ClCompile Include="Shape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SearchFile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SearchWdg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -65,12 +62,12 @@
     <ClInclude Include="Shape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WorkerThread.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SearchWdg.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="WorkerThread.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

@@ -29,7 +29,7 @@ SimplePad::SimplePad(QMainWindow *parent)
     ui.mainToolBar->addAction(QIcon(":/Resource/right.png"), tr("Alignment center"), this, [&] {ui.textEdit->setAlignment(Qt::AlignRight); });
     ui.mainToolBar->addAction(QIcon(":/Resource/paint.png"), tr("Paint shapes"), this, SLOT(paintShapes()));
     ui.mainToolBar->addAction(QIcon(":/Resource/date.png"), tr("Date and time"), this, SLOT(dateAndTime()));
-    ui.mainToolBar->addAction(QIcon(":/Resource/date.png"), tr("Find file"), this, SLOT(findFile()));
+    ui.mainToolBar->addAction(QIcon(":/Resource/search.png"), tr("Find file"), this, SLOT(findFile()));
 
     connect(ui.action_Open_File, SIGNAL(triggered()), SLOT(openFile()));
     connect(ui.action_Save, SIGNAL(triggered()), SLOT(saveFile()));
@@ -43,7 +43,6 @@ SimplePad::SimplePad(QMainWindow *parent)
     connect(ui.action_Print, SIGNAL(triggered()), SLOT(doPrint()));
     connect(ui.actionPaint_shapes, SIGNAL(triggered()), SLOT(paintShapes()));
     connect(ui.lineEdit, SIGNAL(editingFinished()), SLOT(setPath()));
-    //connect(ui.lineSearch, SIGNAL(editingFinished()), SLOT(findFile()));
     connect(ui.treeView, SIGNAL(expanded(const QModelIndex &)), SLOT(expandedPath(const QModelIndex &)));
     connect(ui.treeView, SIGNAL(collapsed(const QModelIndex &)), SLOT(collapsedPath(const QModelIndex&)));
     
@@ -53,6 +52,13 @@ SimplePad::SimplePad(QMainWindow *parent)
 
 }
 
+SimplePad::~SimplePad()
+{
+    for (auto& ptr : arrDeletePtr)
+    {
+        delete ptr;
+    }
+}
 
 void SimplePad::saveFile()
 {
@@ -211,18 +217,13 @@ void SimplePad::collapsedPath(const QModelIndex& index)
 
 void SimplePad::findFile()
 {
-    if (!searchWdg)
-    {
-        searchWdg = std::make_unique<SearchWdg>(strValidPath);
-       // workerThread->moveToThread(&trWorker);
-       // connect(this, SIGNAL(startSearch(QString&)), searchWdg.get(), SLOT(doWork(QString&)));
-        //trWorker.start();
-    }
     
-    
-    //emit startSearch(strValidPath);
+    if (searchWdg)
+        arrDeletePtr.push_back(searchWdg.release());
 
-    //searchWdg = std::make_unique<SearchWdg>(strValidPath);
+    searchWdg = std::make_unique<SearchWdg>(strValidPath);
+        
+
 }
 
 void SimplePad::doPrint()

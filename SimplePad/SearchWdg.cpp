@@ -1,7 +1,7 @@
 #include"SearchWdg.h"
 
-SearchWdg::SearchWdg(QString _strValidPath, QWidget* parent)
-	: strValidPath(_strValidPath), QWidget(parent)
+SearchWdg::SearchWdg(QString& strValidPath, QWidget* parent)
+	: path(strValidPath), QWidget(parent)
 {
     lineSearch = new QLineEdit(this);
     lstWidget = new QListWidget(this);
@@ -10,27 +10,39 @@ SearchWdg::SearchWdg(QString _strValidPath, QWidget* parent)
     vBoxLayout->addWidget(lstWidget);
     this->setLayout(vBoxLayout);
     this->resize(400, 300);
+    this->setWindowTitle("Поиск файла");
+    this->setAttribute(Qt::WA_DeleteOnClose, true);
     this->show();
-
     connect(lineSearch, SIGNAL(editingFinished()), SLOT(findFile()));
 
 }
 
+SearchWdg::~SearchWdg()
+{
+    trWorker.quit();
+    trWorker.wait();
+}
+
 void SearchWdg::findFile()
 {
-    lstWidget->clear();
-    auto str = lineSearch->text();
-
-    QDirIterator it(strValidPath, QDirIterator::Subdirectories);
-    while (it.hasNext()) {
-        QFile file(it.next());
-        QFileInfo item(file);
-        if ((item.isFile() || item.isDir()) && item.fileName().contains(str, Qt::CaseInsensitive))
-        {
-            lstWidget->addItem(item.absoluteFilePath());
-
-        }
+    if (!workerThread)
+    {
+        workerThread = std::make_unique<WorkerThread>();
+        workerThread->moveToThread(&trWorker);
+        connect(this, SIGNAL(startSearch(QString&, QString&)), workerThread.get(), SLOT(doWork(QString&, QString&)));
+        connect(workerThread.get(), SIGNAL(endSearch(QString&)), SLOT(foundFile(QString&)));
+        trWorker.start();
     }
+     
+    lstWidget->clear();
+    QString name = lineSearch->text();
 
+    emit startSearch(name, path);
+
+}
+
+void SearchWdg::foundFile(QString& findFile)
+{
+    lstWidget->addItem(findFile);
 }
 
