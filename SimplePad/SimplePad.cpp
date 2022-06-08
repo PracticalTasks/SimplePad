@@ -13,7 +13,7 @@ SimplePad::SimplePad(QWidget *parent)
     model = std::make_unique<QFileSystemModel>();
     treeView->setModel(model.get());
     
-    ui.gridLayout->addWidget(treeView.get());
+    ui.gridLayout_2->addWidget(treeView.get());
     treeView->hide();
 
     ui.mainToolBar->addAction(QIcon(":/Resource/open-file.png"), tr("Open"), this, SLOT(openFile()));
