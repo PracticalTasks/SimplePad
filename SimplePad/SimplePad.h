@@ -34,7 +34,6 @@ private slots:
     void selectItem(const QModelIndex&);
     void doPrint();
     void setFont();
-    void paintShapes();
 
 protected:
     void keyPressEvent(QKeyEvent* pe) override;
