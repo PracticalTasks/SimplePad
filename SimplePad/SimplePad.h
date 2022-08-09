@@ -1,31 +1,41 @@
 #pragma once
 
-#include <QtWidgets>
-#include <QTranslator>
-#include <QPrinter>
-#include <QPrintDialog>
+#include<QtWidgets>
+#include<QTranslator>
+#include<QPrinter>
+#include<QPrintDialog>
 #include "ui_SimplePad.h"
+#include "MyPaint.h"
+#include "SearchWdg.h"
 
 
+class MyPaint;
+class SearchWdg;
 
 class SimplePad : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    SimplePad(QWidget *parent = Q_NULLPTR);
+    SimplePad(QMainWindow *parent = Q_NULLPTR);
+    ~SimplePad();
 
 private:
     Ui::SimplePadClass ui;
+
     QTranslator translator;
-    QStyle *style;
-    QToolBar* tbar = nullptr;
-    QAction *acttool = nullptr;
-    QTextEdit* textEdit = nullptr;
+    QStyle* style = nullptr;
+    QFileSystemModel* model = nullptr;
+    MyPaint* paintWnd = nullptr;
+    std::unique_ptr<SearchWdg> searchWdg;
 
-    std::unique_ptr<QTreeView> treeView;
-    std::unique_ptr<QFileSystemModel> model;
+    QString strValidPath = QDir::currentPath();
+    std::vector<SearchWdg*> arrDeletePtr;
 
+    void setIndex(const QString &str);
+
+signals:
+    void startSearch(QString &validPath);
 
 private slots:
     void saveFile();
@@ -35,11 +45,16 @@ private slots:
     void ruLanguage();
     void darkTheme();
     void lightTheme();
+    void openFolder();
     void selectItem(const QModelIndex&);
     void doPrint();
-    void newFile();
-    QTextEdit* createNewFile();
-    void toolBar(QAction*);
+    void setFont();
+    void paintShapes();
+    void dateAndTime();
+    void setPath();
+    void expandedPath(const QModelIndex &);
+    void collapsedPath(const QModelIndex&);
+    void findFile();
 
 protected:
     void keyPressEvent(QKeyEvent* pe) override;
