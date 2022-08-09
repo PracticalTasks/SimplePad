@@ -127,6 +127,7 @@ void SimplePad::setFont()
 {
     ui.textEdit->setFont(QFontDialog::getFont(0, ui.textEdit->font()));
 
+
     //QFont font = ui.textEdit->textCursor().charFormat().font();
     //QFontDialog fntDlg(font, this);
     //bool ok;
