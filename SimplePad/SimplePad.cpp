@@ -36,7 +36,7 @@ SimplePad::SimplePad(QWidget *parent)
     connect(treeView.get(), SIGNAL(doubleClicked(const QModelIndex &)), SLOT(selectItem(const QModelIndex &)));
     connect(ui.action_Print, SIGNAL(triggered()), SLOT(doPrint()));
     connect(ui.actionPaint_shapes, SIGNAL(triggered()), SLOT(paintShapes()));
-
+//
 //Установка русской локализации по умолчанию
     ruLanguage();
     lightTheme();
