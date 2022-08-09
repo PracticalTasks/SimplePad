@@ -5,9 +5,6 @@
 #include<QPrinter>
 #include<QPrintDialog>
 #include "ui_SimplePad.h"
-#include "MyPaint.h"
-
-class MyPaint;
 
 class SimplePad : public QMainWindow
 {
@@ -24,9 +21,6 @@ private:
 
     std::unique_ptr<QTreeView> treeView;
     std::unique_ptr<QFileSystemModel> model;
-    
-    std::unique_ptr<MyPaint> paintWdg;
-
 
 private slots:
     void saveFile();

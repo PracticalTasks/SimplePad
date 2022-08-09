@@ -40,24 +40,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyPaint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtTranslation Include="simplepad_ru.ts">
       <Filter>Translation Files</Filter>
     </QtTranslation>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="MyPaint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

@@ -23,7 +23,7 @@ SimplePad::SimplePad(QWidget *parent)
     ui.mainToolBar->addAction(QIcon(":/Resource/left.png"), tr("Alignment left"), this, [&] {ui.textEdit->setAlignment(Qt::AlignLeft); });
     ui.mainToolBar->addAction(QIcon(":/Resource/centr.png"), tr("Alignment center"), this, [&] {ui.textEdit->setAlignment(Qt::AlignCenter); });
     ui.mainToolBar->addAction(QIcon(":/Resource/right.png"), tr("Alignment center"), this, [&] {ui.textEdit->setAlignment(Qt::AlignRight); });
-    ui.mainToolBar->addAction(QIcon(":/Resource/paint.png"), tr("Paint shapes"), this, SLOT(paintShapes()));
+    //ui.mainToolBar->addAction(QIcon(":/Resource/paint.png"), tr("Paint shapes"), this, SLOT(paintShapes()));
 
     connect(ui.action_Open_File, SIGNAL(triggered()), SLOT(openFile()));
     connect(ui.action_Save, SIGNAL(triggered()), SLOT(saveFile()));
@@ -41,8 +41,8 @@ SimplePad::SimplePad(QWidget *parent)
     ruLanguage();
     lightTheme();
 
-    paintWdg = std::make_unique<MyPaint>(this);
-    paintWdg->setWindowTitle("Paint widget");
+    //paintWdg = std::make_unique<MyPaint>(this);
+    //paintWdg->setWindowTitle("Paint widget");
 
 }
 
@@ -139,12 +139,6 @@ void SimplePad::setFont()
     //}
 }
 
-void SimplePad::paintShapes()
-{
-    paintWdg->show();
-    paintWdg->resize(700, 400);
-
-}
 
 void SimplePad::doPrint()
 {

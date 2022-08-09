@@ -46,9 +46,8 @@
         <translation>Выровнить по центру</translation>
     </message>
     <message>
-        <location filename="SimplePad.cpp" line="26"/>
         <source>Paint shapes</source>
-        <translation>Нарисовать фигуры</translation>
+        <translation type="vanished">Нарисовать фигуры</translation>
     </message>
     <message>
         <location filename="SimplePad.cpp" line="70"/>
@@ -74,90 +73,90 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="SimplePad.ui" line="70"/>
+        <location filename="SimplePad.ui" line="63"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="SimplePad.ui" line="79"/>
+        <location filename="SimplePad.ui" line="72"/>
         <source>&amp;Interface</source>
         <translation>&amp;Интерфейс</translation>
     </message>
     <message>
-        <location filename="SimplePad.ui" line="83"/>
+        <location filename="SimplePad.ui" line="76"/>
         <source>&amp;Language</source>
         <translation>&amp;Язык</translation>
     </message>
     <message>
-        <location filename="SimplePad.ui" line="90"/>
+        <location filename="SimplePad.ui" line="83"/>
         <source>&amp;Color theme</source>
         <oldsource>&amp;Theme</oldsource>
         <translation>&amp;Цветовая тема</translation>
     </message>
     <message>
-        <location filename="SimplePad.ui" line="100"/>
+        <location filename="SimplePad.ui" line="93"/>
         <source>&amp;Info</source>
         <translation>&amp;Справка</translation>
     </message>
     <message>
-        <location filename="SimplePad.ui" line="123"/>
+        <location filename="SimplePad.ui" line="116"/>
         <source>&amp;Open file</source>
         <oldsource>&amp;Open File</oldsource>
         <translation>&amp;Открыть файл</translation>
     </message>
     <message>
-        <location filename="SimplePad.ui" line="132"/>
+        <location filename="SimplePad.ui" line="125"/>
         <source>O&amp;pen file(Read only)</source>
         <oldsource>O&amp;pen File(Read only)</oldsource>
         <translation>О&amp;ткрыть файл(Только для читение)</translation>
     </message>
     <message>
-        <location filename="SimplePad.ui" line="142"/>
+        <location filename="SimplePad.ui" line="135"/>
         <source>&amp;Save</source>
         <translation>&amp;Сохранить</translation>
     </message>
     <message>
-        <location filename="SimplePad.ui" line="147"/>
+        <location filename="SimplePad.ui" line="140"/>
         <source>&amp;English</source>
         <translation>&amp;Английский</translation>
     </message>
     <message>
-        <location filename="SimplePad.ui" line="152"/>
+        <location filename="SimplePad.ui" line="145"/>
         <source>&amp;Russian</source>
         <translation>&amp;Русский</translation>
     </message>
     <message>
-        <location filename="SimplePad.ui" line="161"/>
+        <location filename="SimplePad.ui" line="154"/>
         <source>&amp;About SimplePad</source>
         <translation>&amp;О SimplePad</translation>
     </message>
     <message>
-        <location filename="SimplePad.ui" line="166"/>
+        <location filename="SimplePad.ui" line="159"/>
         <source>&amp;Light</source>
         <translation>&amp;Светлая</translation>
     </message>
     <message>
-        <location filename="SimplePad.ui" line="171"/>
+        <location filename="SimplePad.ui" line="164"/>
         <source>&amp;Dark</source>
         <translation>&amp;Тёмная</translation>
     </message>
     <message>
-        <location filename="SimplePad.ui" line="176"/>
+        <location filename="SimplePad.ui" line="169"/>
         <source>Se&amp;lect folder as project </source>
         <translation>Открыть &amp;папку как проект </translation>
     </message>
     <message>
-        <location filename="SimplePad.ui" line="185"/>
+        <location filename="SimplePad.ui" line="178"/>
         <source>&amp;Print</source>
         <translation>&amp;Печать</translation>
     </message>
     <message>
-        <location filename="SimplePad.ui" line="190"/>
+        <location filename="SimplePad.ui" line="183"/>
         <source>Test Font</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SimplePad.ui" line="195"/>
+        <location filename="SimplePad.ui" line="188"/>
         <source>Paint shapes</source>
         <translation></translation>
     </message>
