@@ -1,6 +1,7 @@
 #include "SimplePad.h"
 #include<QDir>
 #include<QTextStream>
+#include"FileSys.h"
 
 #pragma warning(disable : 4834)
 
@@ -8,7 +9,7 @@ SimplePad::SimplePad(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
-    //
+    
     treeView = std::make_unique<QTreeView>();
     model = std::make_unique<QFileSystemModel>();
     treeView->setModel(model.get());
@@ -44,41 +45,18 @@ SimplePad::SimplePad(QWidget *parent)
 
 void SimplePad::saveFile()
 {
-    auto str = QFileDialog::getSaveFileName(this, tr("Save file"),
-        QDir::currentPath(), tr("Text file(*.txt);; All(*.*)"));
-    if (!str.isEmpty())
-    {
-        if (str.endsWith(".txt"))
-        {
-            QFile file(str);
-            if (file.open(QFile::WriteOnly))
-            {
-                QTextStream stream(&file);
-                stream << ui.textEdit->toPlainText();
-                file.close();
-            }
-        }
-    }
+    FileSys fs;
+
+    fs.saveFile(ui.textEdit->toPlainText());
+
 }
 
 void SimplePad::openFile()
 {
-    QString str = QFileDialog::getOpenFileName(this, tr("Open file"),
-        QDir::currentPath(), tr("Text file(*.txt);; All(*.*)"));
+    FileSys fs;
 
-    if (str.length() > 0)
-    {
-        if (!str.isEmpty())
-        {
-            QFile file(str);
-            if (file.open(QFile::ReadOnly | QFile::ExistingOnly))
-            {
-                QTextStream stream(&file);
-                ui.textEdit->setPlainText(stream.readAll());
-                file.close();
-            }
-        }
-    }
+    ui.textEdit->setPlainText(fs.openFile());
+
 }
 
 void SimplePad::info()
