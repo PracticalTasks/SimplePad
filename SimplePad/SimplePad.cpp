@@ -8,7 +8,7 @@ SimplePad::SimplePad(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
-
+    //
     treeView = std::make_unique<QTreeView>();
     model = std::make_unique<QFileSystemModel>();
     treeView->setModel(model.get());
