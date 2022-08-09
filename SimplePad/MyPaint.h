@@ -4,8 +4,6 @@
 #include<ctime>
 #include"Shape.h"
 
-
-
 class MyPaint : public QMainWindow
 {
 public:
