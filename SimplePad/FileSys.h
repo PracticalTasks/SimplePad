@@ -10,6 +10,7 @@ public:
 
 	QString openFile();
 	void saveFile(QString txt);
+	QString loadFile(QString str);
 
 private:
 	QFile* file;

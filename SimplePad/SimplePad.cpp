@@ -61,14 +61,9 @@ void SimplePad::openFile()
 
 void SimplePad::info()
 {
-    QString str;
-    QFile file(":/Resource/info.txt");
-    if (file.open(QFile::ReadOnly | QFile::ExistingOnly))
-    {
-        str = file.readAll();
-        file.close();
-    }
-    QMessageBox::information(nullptr, tr("Info"), str);
+    FileSys fs;
+
+    QMessageBox::information(nullptr, tr("Info"), fs.loadFile(":/Resource/info.txt"));
 
 }
 
@@ -101,17 +96,6 @@ void SimplePad::setFont()
 {
     ui.textEdit->setFont(QFontDialog::getFont(0, ui.textEdit->font()));
 
-
-    //QFont font = ui.textEdit->textCursor().charFormat().font();
-    //QFontDialog fntDlg(font, this);
-    //bool ok;
-    //font = fntDlg.getFont(&ok);
-    //if (ok)
-    //{
-    //    QTextCharFormat fmt;
-    //    fmt.setFont(font);
-    //    ui.textEdit->textCursor().setCharFormat(fmt);
-    //}
 }
 
 
@@ -144,11 +128,9 @@ void SimplePad::lightTheme()
 
 void SimplePad::darkTheme()
 {
-    QFile file(":/Resource/dark.qss");
-    file.open(QIODevice::ReadOnly);
-    QString str = file.readAll();
-    file.close();
-    this->setStyleSheet(str);
+    FileSys fs;
+
+    this->setStyleSheet(fs.loadFile(":/Resource/dark.qss"));
 }
 
 void SimplePad::openFolder()
@@ -156,17 +138,18 @@ void SimplePad::openFolder()
     QString str = QFileDialog::getExistingDirectory(this, tr("Select folder"), "", QFileDialog::ShowDirsOnly);
     model->setRootPath(QDir::currentPath());
     treeView->setRootIndex(model->index(str));
+
     for (int i = 1; i < model->columnCount(); ++i)
         treeView->hideColumn(i);
+
     treeView->setHeaderHidden(true);
     treeView->show();
-
 
 }
 
 void SimplePad::selectItem(const QModelIndex &index)
 {
-    auto str = model->filePath(index);
+    QString str = model->filePath(index);
 
     if (str.length() > 0)
     {
