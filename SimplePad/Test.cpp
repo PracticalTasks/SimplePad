@@ -9,9 +9,9 @@ class TestSimplePad : public QObject
 private slots:
 	void testTextEdit();
 	void testOpenFile();
+	void testSaveFile();
 };
 
-//Полу автамотический тест
 void TestSimplePad::testTextEdit()
 {
 	SimplePad sp;
@@ -31,6 +31,11 @@ void TestSimplePad::testOpenFile()
 	fs.openFile("Test.txt");
 	QString str = QFINDTESTDATA("Test.txt");
 	QCOMPARE(fs.getAddrFile()->fileName(), str);
+
+}
+
+void TestSimplePad::testSaveFile()
+{
 
 }
 
