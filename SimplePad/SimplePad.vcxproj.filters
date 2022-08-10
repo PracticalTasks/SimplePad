@@ -60,4 +60,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Test.cpp">
+      <Filter>Source Files</Filter>
+    </QtMoc>
+  </ItemGroup>
 </Project>
