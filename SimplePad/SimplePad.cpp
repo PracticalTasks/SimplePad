@@ -69,6 +69,7 @@ void SimplePad::info()
 
 void SimplePad::keyPressEvent(QKeyEvent* pe)
 {
+
     switch (pe->key())
     {
     case Qt::Key_O:
