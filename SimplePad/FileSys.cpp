@@ -12,10 +12,10 @@ FileSys::~FileSys()
     delete file;
 }
 
-QString FileSys::openFile()
+QString FileSys::openFile(QString pathFile)
 {
     QString str = QFileDialog::getOpenFileName(this, "Open file",
-        QDir::currentPath(), "Text file(*.txt);; All(*.*)");
+        pathFile, "Text file(*.txt);; All(*.*)");
 
     if (!str.isEmpty())
     {
@@ -56,4 +56,9 @@ QString FileSys::loadFile(QString str)
         str = file->readAll();
 
     return str;
+}
+
+QFile* FileSys::getAddrFile()
+{
+    return file;
 }
