@@ -1,6 +1,6 @@
 #include<QtTest/QtTest>
 #include<QtWidgets>
-#include"FileSys.h"
+#include"HotKeys.h"
 
 class TestFileSys : public QObject
 {
@@ -13,14 +13,6 @@ private slots:
 //Полу автамотический тест
 void TestFileSys::testOpenFile()
 {
-	FileSys fs;
-	//Нажать Отмена
-	fs.openFile();
-	QCOMPARE(fs.getAddrFile()->fileName(), "");
-	//Нажать открыть
-	fs.openFile("Test.txt");
-	QString str = QFINDTESTDATA("Test.txt");
-	QCOMPARE(fs.getAddrFile()->fileName(), str);
 
 }
 
