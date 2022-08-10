@@ -20,33 +20,33 @@ void TestSimplePad::testTextEdit()
 	QCOMPARE(sp.getUi().textEdit->toPlainText(), testStr);
 }
 
-//Ïîëó àâòîìîòè÷åñêèé òåñò
+//ÐŸÐ¾Ð»Ñƒ Ð°Ð²Ñ‚Ð¾Ð¼Ð¾Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¸Ð¹ Ñ‚ÐµÑÑ‚
 void TestSimplePad::testOpenFile()
 {
 	FileSys fs;
-	//Íàæàòü ESQ
+	//ÐÐ°Ð¶Ð°Ñ‚ÑŒ ESQ
 	fs.openFile();
 	QCOMPARE(fs.getAddrFile()->fileName(), "");
-	//Íàæàòü ENTER
+	//ÐÐ°Ð¶Ð°Ñ‚ÑŒ ENTER
 	fs.openFile("Test.txt");
 	QString str = QFINDTESTDATA("Test.txt");
 	QCOMPARE(fs.getAddrFile()->fileName(), str);
 
 }
 
-//Ïîëó àâòîìîòè÷åñêèé òåñò
+//ÐŸÐ¾Ð»Ñƒ Ð°Ð²Ñ‚Ð¾Ð¼Ð¾Ñ‚Ð¸Ñ‡ÐµÑÐºÐ¸Ð¹ Ñ‚ÐµÑÑ‚
 void TestSimplePad::testSaveFile()
 {
 	SimplePad sp;
 	FileSys fs;
-	//Íàæàòü ENTER
+	//ÐÐ°Ð¶Ð°Ñ‚ÑŒ ENTER
 	sp.openFile("SaveFileTest.txt");
 	sp.getUi().textEdit->clear();
 	QString testStr= "Test save file";
 	QTest::keyClicks(sp.getUi().textEdit, testStr);
-	//Íàæàòü ENTER
+	//ÐÐ°Ð¶Ð°Ñ‚ÑŒ ENTER
 	sp.saveFile("SaveFileTest.txt");
-	//Íàæàòü ENTER
+	//ÐÐ°Ð¶Ð°Ñ‚ÑŒ ENTER
 	sp.openFile("SaveFileTest.txt");
 	QCOMPARE(sp.getUi().textEdit->toPlainText(), testStr);
 
