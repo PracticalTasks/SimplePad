@@ -20,7 +20,7 @@ void TestSimplePad::testTextEdit()
 	QCOMPARE(sp.getUi().textEdit->toPlainText(), testStr);
 }
 
-//Полу автамотический тест
+//Полу автомотический тест
 void TestSimplePad::testOpenFile()
 {
 	FileSys fs;
@@ -34,6 +34,7 @@ void TestSimplePad::testOpenFile()
 
 }
 
+//Полу автомотический тест
 void TestSimplePad::testSaveFile()
 {
 	SimplePad sp;
