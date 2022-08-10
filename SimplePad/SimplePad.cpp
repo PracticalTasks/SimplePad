@@ -1,7 +1,6 @@
 #include "SimplePad.h"
 #include<QDir>
 #include<QTextStream>
-#include"FileSys.h"
 #include"HotKeys.h"
 
 #pragma warning(disable : 4834)
@@ -44,19 +43,19 @@ SimplePad::SimplePad(QWidget *parent)
 
 }
 
-void SimplePad::saveFile()
+void SimplePad::saveFile(QString pathName)
 {
     FileSys fs;
 
-    fs.saveFile(ui.textEdit->toPlainText());
+    fs.saveFile(ui.textEdit->toPlainText(), pathName);
 
 }
 
-void SimplePad::openFile()
+void SimplePad::openFile(QString pathFile)
 {
     FileSys fs;
 
-    ui.textEdit->setPlainText(fs.openFile());
+    ui.textEdit->setPlainText(fs.openFile(pathFile));
 
 }
 

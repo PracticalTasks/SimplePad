@@ -9,7 +9,7 @@ public:
 	~FileSys();
 
 	QString openFile(QString pathFile = QDir::currentPath());
-	void saveFile(QString txt);
+	void saveFile(QString txt, QString pathFile = QDir::currentPath());
 	QString loadFile(QString str);
 	QFile* getAddrFile();
 

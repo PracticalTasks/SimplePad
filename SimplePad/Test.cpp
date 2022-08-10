@@ -15,19 +15,19 @@ private slots:
 void TestSimplePad::testTextEdit()
 {
 	SimplePad sp;
-	QString strTest = "Hello QT Test";
-	QTest::keyClicks(sp.getUi().textEdit, strTest);
-	QCOMPARE(sp.getUi().textEdit->toPlainText(), strTest);
+	QString testStr = "Hello QT Test";
+	QTest::keyClicks(sp.getUi().textEdit, testStr);
+	QCOMPARE(sp.getUi().textEdit->toPlainText(), testStr);
 }
 
 //Полу автамотический тест
 void TestSimplePad::testOpenFile()
 {
 	FileSys fs;
-	//Нажать Отмена
+	//Нажать ESQ
 	fs.openFile();
 	QCOMPARE(fs.getAddrFile()->fileName(), "");
-	//Нажать открыть
+	//Нажать ENTER
 	fs.openFile("Test.txt");
 	QString str = QFINDTESTDATA("Test.txt");
 	QCOMPARE(fs.getAddrFile()->fileName(), str);
@@ -36,6 +36,18 @@ void TestSimplePad::testOpenFile()
 
 void TestSimplePad::testSaveFile()
 {
+	SimplePad sp;
+	FileSys fs;
+	//Нажать ENTER
+	sp.openFile("SaveFileTest.txt");
+	sp.getUi().textEdit->clear();
+	QString testStr= "Test save file";
+	QTest::keyClicks(sp.getUi().textEdit, testStr);
+	//Нажать ENTER
+	sp.saveFile("SaveFileTest.txt");
+	//Нажать ENTER
+	sp.openFile("SaveFileTest.txt");
+	QCOMPARE(sp.getUi().textEdit->toPlainText(), testStr);
 
 }
 

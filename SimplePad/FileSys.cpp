@@ -30,10 +30,10 @@ QString FileSys::openFile(QString pathFile)
     return nullptr;
 }
 
-void FileSys::saveFile(QString txt)
+void FileSys::saveFile(QString txt, QString pathFile)
 {
     QString str = QFileDialog::getSaveFileName(this, tr("Save file"),
-        QDir::currentPath(), tr("Text file(*.txt);; All(*.*)"));
+        pathFile, tr("Text file(*.txt);; All(*.*)"));
 
     if (!str.isEmpty())
     {

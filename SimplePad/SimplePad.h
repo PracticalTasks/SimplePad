@@ -4,6 +4,7 @@
 #include<QTranslator>
 #include<QPrinter>
 #include<QPrintDialog>
+#include"FileSys.h"
 #include "ui_SimplePad.h"
 
 class SimplePad : public QMainWindow
@@ -35,8 +36,8 @@ private slots:
     void setFont();
 
 public slots:
-    void openFile();
-    void saveFile();
+    void openFile(QString pathFile = QDir::currentPath());
+    void saveFile(QString pathFile = QDir::currentPath());
     
 protected:
     void keyPressEvent(QKeyEvent* pe) override;
