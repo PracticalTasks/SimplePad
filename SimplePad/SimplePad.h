@@ -12,6 +12,7 @@ class SimplePad : public QMainWindow
 
 public:
     SimplePad(QWidget *parent = Q_NULLPTR);
+    Ui::SimplePadClass& getUi();
 
 private:
     Ui::SimplePadClass ui;
@@ -23,8 +24,6 @@ private:
     std::unique_ptr<QFileSystemModel> model;
 
 private slots:
-    void saveFile();
-    void openFile();
     void info();
     void enLanguage();
     void ruLanguage();
@@ -35,6 +34,10 @@ private slots:
     void doPrint();
     void setFont();
 
+public slots:
+    void openFile();
+    void saveFile();
+    
 protected:
     void keyPressEvent(QKeyEvent* pe) override;
 };

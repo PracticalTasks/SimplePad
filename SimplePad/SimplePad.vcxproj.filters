@@ -43,6 +43,9 @@
     <ClCompile Include="FileSys.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HotKeys.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtTranslation Include="simplepad_ru.ts">
@@ -51,6 +54,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileSys.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HotKeys.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

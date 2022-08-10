@@ -2,6 +2,7 @@
 #include<QDir>
 #include<QTextStream>
 #include"FileSys.h"
+#include"HotKeys.h"
 
 #pragma warning(disable : 4834)
 
@@ -69,28 +70,11 @@ void SimplePad::info()
 
 void SimplePad::keyPressEvent(QKeyEvent* pe)
 {
+    HotKeys hK;
 
-    switch (pe->key())
-    {
-    case Qt::Key_O:
-        if (pe->modifiers() & Qt::ControlModifier)
-            openFile();
-        break;
-    case Qt::Key_S:
-        if (pe->modifiers() & Qt::ControlModifier)
-            saveFile();
-        break;
-    case Qt::Key_N:
-        if (pe->modifiers() & Qt::ControlModifier)
-            ui.textEdit->clear();
-        break;
-    case Qt::Key_Q:
-        if (pe->modifiers() & Qt::ControlModifier)
-            this->close();
-        break;
-    default:
+    if(hK.keysProcessing(this, pe))
         QWidget::keyPressEvent(pe);
-    }
+
 }
 
 void SimplePad::setFont()
@@ -132,6 +116,11 @@ void SimplePad::darkTheme()
     FileSys fs;
 
     this->setStyleSheet(fs.loadFile(":/Resource/dark.qss"));
+}
+
+Ui::SimplePadClass& SimplePad::getUi()
+{
+    return ui;
 }
 
 void SimplePad::openFolder()
