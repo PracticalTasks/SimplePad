@@ -67,7 +67,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -97,7 +97,6 @@
     <ClCompile Include="FileSys.cpp" />
     <ClCompile Include="HotKeys.cpp" />
     <ClCompile Include="SimplePad.cpp" />
-    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtTranslation Include="simplepad_ru.ts" />

@@ -1,20 +1,26 @@
 #include<QtTest/QtTest>
 #include<QtWidgets>
-#include"HotKeys.h"
+#include"SimplePad.h"
 
-class TestFileSys : public QObject
+class TestSimplePad : public QObject
 {
 	Q_OBJECT
 private slots:
-	void testOpenFile();
+	void testTextEdit();
 
 };
 
 //Полу автамотический тест
-void TestFileSys::testOpenFile()
+void TestSimplePad::testTextEdit()
 {
+	SimplePad sp;
+	QString strTest = "Hello QT Test";
+	QTest::keyClicks(sp.getUi().textEdit, strTest);
+	QCOMPARE(sp.getUi().textEdit->toPlainText(), strTest);
+
+
 
 }
 
-QTEST_MAIN(TestFileSys)
+QTEST_MAIN(TestSimplePad)
 #include"test.moc"
